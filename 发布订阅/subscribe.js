@@ -20,13 +20,56 @@
             let isExist=false;
             pond.forEach(item => {
                 item===fn?isExist=true:null;
-            })
+            });
             !isExist?pond.push(fn):null;
+        }
+
+        //从计划表（pond池子）中移除方法
+        remove(fn){
+            let pond=this.pond;
+            pond.forEach((item,index)=>{
+                if(item===fn){
+                    pond[index]=null;
+                }
+            });
+        }
+
+        //通知计划表中的方法依次执行,如果传递了参数，把这些参数依次赋值给执行的每一个方法
+        fire(...arg){
+            let pond=this.pond;
+            for (var i = 0; i < pond.length; i++) {
+                let item =pond[i];
+                if(item===null){
+                    pond.slice(i,1);
+                    i--;
+                    continue;
+                }
+                item(...arg);
+            }
         }
     }
     window.Subscribe=Subscribe;
 }(window);
-let subscribe=new Subscribe();
-subscribe.add();
-subscribe.remove();
-subscribe.fire();
+/* let subscribe=new Subscribe();
+let fn1=function fn1(x,y){
+    console.log(1,x,y);
+}
+let fn2=function fn2(x,y){
+    console.log(2);
+}
+let fn3=function fn3(x,y){
+    console.log(3);
+}
+let fn4=function fn4(x,y){
+    console.log(4);
+}
+subscribe.add(fn1);
+subscribe.add(fn2);
+subscribe.add(fn2);
+subscribe.add(fn3);
+subscribe.add(fn3);
+subscribe.add(fn4);
+
+setTimeout(()=>{
+    subscribe.fire(100,200);
+},2000); */
