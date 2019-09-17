@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../reset.min.css">
+    <style>
+        html,
+        body {
+            height: 500%;
+        }
+
+        .diaLogMark {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .diaLogBox {
+            position: fixed;
+            z-index: 1001;
+            width: 300px;
+            height: 300px;
+            background: #ffffff;
+            overflow: hidden;
+        }
+
+        .diaLogBox h3 {
+            position: relative;
+            padding: 0 10px;
+            height: 35px;
+            line-height: 35px;
+            background: #dddddd;
+            border-bottom: 1px solid #aaaaaa;
+            cursor: move;
+            user-select: none;
+        }
+
+        .diaLogBox h3 i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            margin-top: -10px;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            font-size: 16px;
+            font-style: normal;
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- dialog :模态框（弹出框） -->
+    <div class="diaLogMark"></div>
+    <div class="diaLogBox">
+        <h3 class="title">何林虓DIALOG
+            <i>X</i>
+        </h3>
+        <div class="con">
+
+        </div>
+    </div>
+    <script src="../../jquery.min_1.11.3.js"></script>
+    <!-- <script src="./drag-备份2.js"></script> -->
+    <script>
+        $(function () {
+            let $diaLogBox = $(".diaLogBox"),
+                $diaLogMark = $(".diaLogMark"),
+                $boxTitle = $diaLogBox.find(".title"),
+                $closeBtn = $boxTitle.find("i");
+
+            //先让diaLogBox在屏幕中间
+            let winH = document.documentElement.clientHeight,
+                winW = document.documentElement.clientWidth,
+                boxH = $diaLogBox[0].offsetHeight,
+                boxW = $diaLogBox[0].offsetWidth;
+            //让diaLogBox在屏幕中间显示
+            $diaLogBox.css({
+                top: (winH - boxH) / 2,
+                left: (winW - boxW) / 2
+            });
+            //点击关闭按钮可以让diaLog消失
+            $closeBtn.on('click', function () {
+                $diaLogBox.stop().fadeOut(200, () => {
+                    $diaLogMark.css('display', 'none');
+                });
+            });
+            //=>3.实现拖拽效果
+            /*
+             * 思路
+             *  A:鼠标在H3中按下(MOUSE-DOWN)证明拖拽开始
+             *  B:鼠标在H3中移动(MOUSE-MOVE)让盒子也跟着移动
+             *  C:鼠标在H3上松开(MOUSE-UP)证明拖拽结束,此时我们再在H3中移动,不做任何的处理
+             */
+            //鼠标按下处理的事情:记录鼠标起始的位置
+            let dragStart = function dragStart(ev) {
+                //this:H3
+                //基于普通对象的方式自定义属性，获取的时候this.XX获取即可
+                this.starX = ev.clientX;
+                this.starY = ev.clientY;
+                this.starL = parseFloat($diaLogBox.css('left'));
+                this.starT = parseFloat($diaLogBox.css('top'));
+
+                //$(document).on('mousemove', dragMove).on('mouseup',dragEnd); //只有按下后才会给move行为绑定方法
+                //此时dragmove/dragend中的this都是document，但是我们在dragmove中使用的this希望和dragstart中的this相同，都是H3
+                //即可。
+                //A.bind   B.箭头函数
+                /* 
+                 *bind是预先处理this
+                 *console.log(dragMove/bind(this)===dragMove); =>false
+                 *说明bind把方法中的this预先进行处理了，得到的结果和原有函数不同，也就是此时我们给document绑定的方法不再是dragmove了
+                 */
+                // this.DRAG_MOVE = dragMove.bind(this);
+                this.DRAG_MOVE = dragMove.bind(this);
+                // this.DRAG_END = dragEnd.bind(this);
+                this.DRAG_END = dragEnd.bind(this);
+                $(document).on('mousemove', this.DRAG_MOVE)
+                .on('mouseup', this.DRAG_END);
+            };
+
+            //鼠标移动处理的事情
+            let dragMove = function dragMove(ev) {
+                //this : h3
+                //随时根据鼠标的位置计算出盒子当前的位置
+                let {
+                    starX,
+                    starY,
+                    starL,
+                    starT
+                } = this;
+                let curL = ev.clientX - starX + starL,
+                    curT = ev.clientY - starY + starT;
+                let minL = 0,
+                    minT = 0,
+                    maxL = winW - boxW,
+                    maxT = winH - boxH;
+                curL = curL < minL ? minL : (curL > maxL ? maxL : curL);
+                curT = curT < minT ? minT : (curT > maxT ? maxT : curT);
+                $diaLogBox.css({
+                    left: curL,
+                    top: curT
+                });
+            };
+
+            //鼠标离开处理的事情
+            let dragEnd = function dragEnd(ev) {
+                $(document).off('mousemove', this.DRAG_MOVE)
+                    .off('mouseup', this.DRAG_END);
+            };
+
+            $boxTitle.mousedown(dragStart);
+
+        });
+        /* 
+         *拖拽的问题：当鼠标移动过快，盒子需要计算最新的位置，但是计算速度跟不上鼠标的移动速度，导致鼠标离开了盒子（）具体来说离开了H3
+         *而我们的所有方法都是绑定给H3的相关事件行为的，鼠标不在H3上，不管什么操作都不会和之前绑定的方法有关
+         *鼠标不在h3上
+         * 1.鼠标继续移动盒子也不动了，因为并没有触发h3的mousemove
+         * 2.鼠标在h3以外松开，没有触发它的mouseup，也就是没有执行取消mousemove绑定方法的操作。
+         * 解决办法
+         * 1.使用this.setCapture()：把当前元素和鼠标绑在一起
+         *       this.releaseCapture():解绑
+         *  此方法不兼容IE浏览器
+         * 2.鼠标移动再快也不会逃出DOCUMENT，此时我们可以把给document的mousemove绑定方法dragmove（给document的mouseup绑定方法
+         * dragend），只要是在文档中移动或者抬起鼠标，都执行相应的操作即可
+         * 
+         */
+    </script>
+</body>
+
+</html>
