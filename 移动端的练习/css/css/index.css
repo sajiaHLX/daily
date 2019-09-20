@@ -1,0 +1,287 @@
+/*
+ * @Author: He Linxiao 
+ * @Date: 2019-09-19 19:34:50 
+ * @Last Modified by: He Linxiao
+ * @Last Modified time: 2019-09-20 15:39:20
+ */
+/*虽然移动端的（安卓和IOS）浏览器大部分都是webkit内核的，但是由于很多手机操作系统
+ *版本过低（尤其是安卓手机）,导致很多css3新特性不能有效识别，此时我们使用的大部分
+ *css3属性都要写两套才可以兼容（加前缀的在前，不加的在后） 
+ *-webkit-animation
+ *animation
+ *太麻烦了，但是有JS插件（prefixfree.min.js）可以帮我们给所有需要加前缀的都加上
+// */
+html {
+  font-size: 100px;
+  /* 1rem=100px */
+}
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  background: #f4f4f4;
+}
+.mainBox {
+  margin: 0 auto;
+  max-width: 640px;
+  height: 100%;
+  background: #ffffff;
+}
+/* loading */
+.loadingBox,
+.phoneBox,
+.messageBox {
+  display: none;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.loadingBox {
+  background: #000000;
+}
+.loadingBox .title {
+  height: 1.4rem;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -2rem;
+  width: 100%;
+  color: #ffffff;
+}
+.loadingBox .title h1 {
+  line-height: .75rem;
+  font-size: .5rem;
+  text-align: center;
+  letter-spacing: .03rem;
+}
+.loadingBox .title h2 {
+  margin-top: .2rem;
+  line-height: .45rem;
+  font-size: .2rem;
+  text-align: center;
+  letter-spacing: .04rem;
+}
+.loadingBox .progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0.85rem 0 0 -2.3rem;
+  width: 4.6rem;
+  height: .3rem;
+  background: #ffffff;
+  border-radius: .06rem;
+}
+.loadingBox .progress .current {
+  position: absolute;
+  border-radius: .06rem;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: -webkit-linear-gradient(left bottom, #5cb85c 0%, #5cb85c 25%, #74c274 25%, #74c274 50%, #5cb85c 50%, #5cb85c 75%, #74c274 75%, #74c274 100%);
+  background-size: .3rem .3rem;
+  animation: loadingMove .5s linear 0s infinite both;
+  /*  给current设置一个过渡动画：当我们在js中控制它的宽度在变化的时候，给其一个平稳的动画效果而不是生硬的改变*/
+  transition: all .8s linear 0s;
+}
+@keyframes loadingMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 -0.3rem;
+  }
+}
+/* phone */
+.phoneBox {
+  background: url('../img/zf_phoneBg.jpg') no-repeat;
+  background-size: cover;
+}
+.phoneBox h2 {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #ffffff;
+}
+.phoneBox h2 span {
+  display: none;
+  margin-top: .1rem;
+  line-height: .3rem;
+  font-size: .3rem;
+  color: #ffffff;
+  letter-spacing: .05rem;
+}
+.phoneBox .answer {
+  position: absolute;
+  bottom: .3rem;
+  left: 50%;
+  margin-left: -2.6rem;
+  width: 5.2rem;
+  height: 3.6rem;
+  background: url("../img/zf_phoneListen.png") no-repeat;
+  background-size: 100% 100%;
+}
+.phoneBox .answer .markMove {
+  position: absolute;
+  right: -0.06rem;
+  bottom: -0.48rem;
+  margin-bottom: .967rem;
+  z-index: -1;
+  box-sizing: border-box;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  border: .03rem solid #0f0;
+  animation: answerMove 1s linear infinite both;
+}
+.phoneBox .answer .markLink {
+  position: absolute;
+  right: -0.06rem;
+  bottom: -0.48rem;
+  margin-bottom: .967rem;
+  z-index: -1;
+  box-sizing: border-box;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  border: .03rem solid #0f0;
+  animation: answerMove 1s linear infinite both;
+  z-index: 1;
+}
+.phoneBox .hang {
+  position: absolute;
+  bottom: .3rem;
+  left: 50%;
+  margin-left: -2.6rem;
+  width: 5.2rem;
+  height: 6.59rem;
+  background: url("../img/zf_phoneDetail.png") no-repeat;
+  background-size: 100% 100%;
+  transform: translateY(6.89rem);
+  transition: .3s;
+}
+.phoneBox .hang .markLink {
+  position: absolute;
+  bottom: .26rem;
+  left: 50%;
+  z-index: 1;
+  margin-left: -0.8rem;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+@keyframes answerMove {
+  from {
+    transform: scale(1.2);
+  }
+  to {
+    transform: scale(0.9);
+  }
+}
+/* message */
+.messageBox {
+  display: block;
+  background: #eaeaea;
+}
+.messageBox .wrapper {
+  position: absolute;
+  top: .2rem;
+  left: 0;
+  width: 100%;
+  transition: .3s;
+}
+.messageBox .wrapper li {
+  position: relative;
+  max-width: 3.6rem;
+  padding: .25rem;
+  margin-bottom: .4rem;
+  border-radius: .1rem;
+  line-height: .4rem;
+  font-size: .26rem;
+  opacity: 0;
+}
+.messageBox .wrapper li.active {
+  animation: messageListMove .3s linear both;
+}
+.messageBox .wrapper li .pic {
+  position: absolute;
+  top: 0;
+  width: .82rem;
+  height: .82rem;
+  border-radius: 50%;
+}
+.messageBox .wrapper li .arrow {
+  position: absolute;
+  top: .2rem;
+  width: .1rem;
+  height: .2rem;
+}
+.messageBox .wrapper li.self {
+  float: left;
+  margin-left: 1.25rem;
+  background: #ffffff;
+  border: .02rem solid #cacaca;
+}
+.messageBox .wrapper li.self .pic {
+  left: -1rem;
+}
+.messageBox .wrapper li.self .arrow {
+  left: -0.1rem;
+  background: url("../img/zf_messageArrow1.png") no-repeat;
+  background-size: 100% 100%;
+}
+.messageBox .wrapper li.inter {
+  float: right;
+  margin-right: 1.25rem;
+  background: #a2e45c;
+  border: .02rem solid #96b474;
+}
+.messageBox .wrapper li.inter .pic {
+  right: -1rem;
+}
+.messageBox .wrapper li.inter .arrow {
+  right: -0.1rem;
+  background: url("../img/zf_messageArrow2.png") no-repeat;
+  background-size: 100% 100%;
+}
+.messageBox .keyBoard {
+  position: absolute;
+  left: 0;
+  bottom: -0.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: 5.16rem;
+  background: url("../img/zf_messageKeyboard.png") no-repeat;
+  background-size: 100% 100%;
+  /* 初始位置 */
+  transform: translateY(3.7rem);
+  transition: .3s;
+}
+.messageBox .keyBoard span {
+  position: absolute;
+  left: .9rem;
+  top: .35rem;
+  width: 4rem;
+  height: .4rem;
+  line-height: .4rem;
+  font-size: .3rem;
+}
+.messageBox .keyBoard .submit {
+  display: none;
+  position: absolute;
+  right: .1rem;
+  bottom: .6rem;
+  width: 1.47rem;
+  height: .74rem;
+  background: url(../img/zf_messageChat.png) no-repeat;
+  background-size: 100% 100%;
+}
+@keyframes messageListMove {
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+}

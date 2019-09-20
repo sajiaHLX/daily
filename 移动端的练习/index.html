@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <!-- <script src="./js/less-2.5.3.min.js"></script> -->
+    <link rel="stylesheet" href="./css/reset.min.less">
     <link rel="stylesheet/less" href="css/index.less">
-    <script src="js/less-2.5.3.min.js"></script>
+    <script src="./js/less-2.5.3.min.js" type="text/javascript"></script>
     <!-- orefixfree 设置前缀的插件-->
     <script src="../../添加前缀的插件/prefixfree.min.js"></script>
     <!-- rem -->
     <script>
-        //根据当前的设备宽度，动态计算出rem的换算比例，实现页面中元素的等比缩放
+        //根据当前的设备宽度，动态计算出rem的换算比例，实现页面中元素的等比缩放/
         ~ function anonymous() {
             let computedRem = function computedRem() {
                 let winW = document.documentElement.clientWidth,
@@ -61,8 +63,66 @@
             <div class="hang">
                 <a href="javascript:;" class="markLink"></a>
             </div>
+            <video muted></video>
             <audio src="./audio/bell.mp3" loop preload="none" id="answerBell"></audio>
-            <audio src="./audio/say.mp3" preload="none" id="introduction"></audio>
+            <audio src="./audio/周杰伦 - 说好不哭 [mqms2].mp3" preload="none" id="introduction"></audio>
+        </section>
+
+        <!-- message -->
+        <section class="messageBox">
+            <ul class="wrapper clearfix">
+                <li class="self">
+                    <i class="arrow"></i>
+                    <img src="img/zf_messageStudent.png" class="pic">
+                    面试官你好，我叫xxx来自于XXX，来自于XXX，于2021年毕业于XXX
+                </li>
+                <li class="inter">
+                    <i class="arrow"></i>
+                    <img src="img/zf_messageLogo.png" class="pic">
+                    ？？？？？？？？介绍一下自己的专业技能吧!!!
+                </li>
+                <li class="self">
+                    <i class="arrow"></i>
+                    <img src="img/zf_messageStudent.png" class="pic">
+                    我什么都不会？？
+                </li>
+                <li class="inter">
+                    <i class="arrow"></i>
+                    <img src="img/zf_messageLogo.png" class="pic">
+                    兄弟你很诚实，我们公司就缺少像你这样诚实的人，来我们公司吧！
+                </li>
+                <li class="self">
+                    <i class="arrow"></i>
+                    <img src="img/zf_messageStudent.png" class="pic">
+                    ！！！！！！！你在逗我玩？认真面试！
+                </li>
+                <li class="inter">
+                    <i class="arrow"></i>
+                    <img src="img/zf_messageLogo.png" class="pic">
+                    你什么都不会让我怎么面试！逗我玩
+                </li>
+                <li class="self">
+                    <i class="arrow"></i>
+                    <img src="img/zf_messageStudent.png" class="pic">
+                    逗你玩咋地？不服啊弟弟！
+                </li>
+                <li class="self">
+                    <i class="arrow"></i>
+                    <img src="img/zf_messageStudent.png" class="pic">
+                    我偏要逗你玩，怎么样呀！
+                </li>
+                <li class="self">
+                    <i class="arrow"></i>
+                    <img src="img/zf_messageStudent.png" class="pic">
+                    不服来干我啊，弟弟！！！
+                </li>
+            </ul>
+            <div class="keyBoard">
+                <span></span><!-- 舒服awsl -->
+                <a href="javascript:;" class="submit"></a>
+            </div>
+            <!-- <video muted></video> -->
+            <audio src="./audio/music.mp3" preload="none" loop id="demonMusic"></audio>
         </section>
     </main>
     <script src="./js/zepto.min.js"></script>
