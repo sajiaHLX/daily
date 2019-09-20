@@ -1,0 +1,192 @@
+/*
+ * @Author: He Linxiao 
+ * @Date: 2019-09-19 19:34:50 
+ * @Last Modified by: He Linxiao
+ * @Last Modified time: 2019-09-20 09:38:42
+ */
+/*虽然移动端的（安卓和IOS）浏览器大部分都是webkit内核的，但是由于很多手机操作系统
+ *版本过低（尤其是安卓手机）,导致很多css3新特性不能有效识别，此时我们使用的大部分
+ *css3属性都要写两套才可以兼容（加前缀的在前，不加的在后） 
+ *-webkit-animation
+ *animation
+ *太麻烦了，但是有JS插件（prefixfree.min.js）可以帮我们给所有需要加前缀的都加上
+*/
+html {
+    font-size: 100px;
+    /* 1rem=100px */
+    font-family: '宋体';
+}
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    background: #f4f4f4;
+}
+
+.mainBox {
+    margin: 0 auto;
+    max-width: 640px;
+    height: 100%;
+    background: #ffffff;
+}
+
+/* loading */
+.loadingBox , .phoneBox{
+    // display: none;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.loadingBox {
+    background: #000000;
+
+    .title {
+        height: 1.4rem;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -2rem;
+        width: 100%;
+        color: #ffffff;
+
+        h1 {
+            line-height: .75rem;
+            font-size: .5rem;
+            text-align: center;
+            letter-spacing: .03rem;
+        }
+
+        h2 {
+            margin-top: .2rem;
+            line-height: .45rem;
+            font-size: .2rem;
+            text-align: center;
+            letter-spacing: .04rem;
+        }
+    }
+
+    .progress {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: .85rem 0 0 -2.3rem;
+        width: 4.6rem;
+        height: .3rem;
+        background: #ffffff;
+        border-radius: .06rem;
+
+        .current {
+            position: absolute;
+            border-radius: .06rem;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: -webkit-linear-gradient(left bottom, #5cb85c 0%, #5cb85c 25%, #74c274 25%, #74c274 50%, #5cb85c 50%, #5cb85c 75%, #74c274 75%, #74c274 100%);
+            background-size: .3rem .3rem;
+            // background: linear-gradient(left bottom,#5cb85c 0%,#5cb85c 25%,#74c274 25%,#74c274 50%,#5cb85c 50%,#5cb85c 75%,#74c274 75%,#74c274 100%);
+            // -webkit-animation: loadingMove .4s linear 0s infinite both;
+            animation: loadingMove .5s linear 0s infinite both;
+            /*  给current设置一个过渡动画：当我们在js中控制它的宽度在变化的时候，给其一个平稳的动画效果而不是生硬的改变*/
+            transition: all .8s linear 0s;
+        }
+    }
+}
+
+@keyframes loadingMove {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 -.3rem;
+    }
+}
+
+/* phone */
+.phoneBox{
+    // display: block;
+    // z-index: -2;
+    background: url('../img/zf_phoneBg.jpg') no-repeat;
+    background-size: cover;
+    h2{
+        // display: inline-block;
+        margin-top: 2rem;
+        text-align: center;
+        font-size: 0.7rem;
+        color: #ffffff;
+        span{
+            // display: none;
+            margin-top: .1rem;
+            line-height: .3rem;
+            font-size: .3rem;
+            color: #ffffff;
+            letter-spacing: .05rem;
+        }
+    }
+    .answer{
+        position: absolute;
+        bottom: .3rem;
+        left: 50%;
+        margin-left: -2.6rem;
+        width: 5.2rem;
+        height: 3.6rem;
+        background: url("../img/zf_phoneListen.png") no-repeat;
+        background-size: 100% 100%;
+        
+        .markMove{
+            position: absolute;
+            right: -.06rem;
+            bottom: -.48rem;
+            margin-bottom: .967rem;
+            z-index: -1;
+            box-sizing: border-box;
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 50%;
+            border: .03rem solid #0f0;
+            animation: answerMove 1s linear infinite both;
+        }
+        .markLink{
+            .markMove;
+            z-index: 1;
+            // border: none;
+            // border-radius: 0;
+            // animation: none;
+        }
+    }
+    .hang{
+        position: absolute;
+        bottom: .3rem;
+        left: 50%;
+        margin-left: -2.6rem;
+        width: 5.2rem;
+        height: 6.59rem;
+        background: url("../img/zf_phoneDetail.png") no-repeat;
+        background-size: 100% 100%;
+        
+        //初始位置在手机底部看不见（溢出的内容隐藏了），当点击接听按钮后，控制它从底部出来（我们基于transform改变样式），尽量不要使用传统的样式属性，因为transform操作开启了浏览器的硬件加速，性能更高
+        transform: translateY(6.89rem);
+        transition: .3s;
+
+        .markLink{
+            position: absolute;
+            bottom: .26rem;
+            left: 50%;
+            z-index: 1;
+            margin-left: -.8rem;
+            width: 1.6rem;
+            height: 1.6rem;
+        }
+    }
+}
+@keyframes answerMove{
+    from{
+        transform: scale(1.2);
+    }
+    to{
+        transform: scale(0.9);
+    }
+}

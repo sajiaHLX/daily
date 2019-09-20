@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet/less" href="css/index.less">
+    <script src="js/less-2.5.3.min.js"></script>
+    <!-- orefixfree 设置前缀的插件-->
+    <script src="../../添加前缀的插件/prefixfree.min.js"></script>
+    <!-- rem -->
+    <script>
+        //根据当前的设备宽度，动态计算出rem的换算比例，实现页面中元素的等比缩放
+        ~ function anonymous() {
+            let computedRem = function computedRem() {
+                let winW = document.documentElement.clientWidth,
+                    desW = 640;
+                if (winW >= 640) {
+                    document.documentElement.style.fontSize = '100px';
+                    return;
+                }
+                document.documentElement.style.fontSize = winW / desW * 100 + 'px';
+            };
+            computedRem();
+            window.addEventListener('resize', computedRem);
+        }();
+    </script>
+
+</head>
+
+<body>
+    <main class="mainBox">
+        <!-- 外面套一个mainBox主要用于控制当前页面的最大宽度，防止在pc端预览的时候满屏展示，
+        这样字体和盒子大小等被拉伸 -->
+        <!-- loadingBox -->
+        <section class="loadingBox">
+            <!-- loading -->
+            <div class="title">
+                <h1>欢迎来到德莱联盟</h1>
+                <h2>这是一个练习</h2>
+            </div>
+            <div class="progress">
+                <div class="current">
+
+                </div>
+            </div>
+        </section>
+
+        <!-- phone -->
+        <section class="phoneBox">
+            <h2>18892809939<br>
+                <span>00:00</span>
+            </h2>
+
+            <div class="answer">
+                <div class="markMove"></div>
+                <a href="javascript:;" class="markLink"></a>
+            </div>
+            <div class="hang">
+                <a href="javascript:;" class="markLink"></a>
+            </div>
+            <audio src="./audio/bell.mp3" loop preload="none" id="answerBell"></audio>
+            <audio src="./audio/say.mp3" preload="none" id="introduction"></audio>
+        </section>
+    </main>
+    <script src="./js/zepto.min.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
