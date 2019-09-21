@@ -2,7 +2,7 @@
  * @Author: He Linxiao 
  * @Date: 2019-09-19 19:34:50 
  * @Last Modified by: He Linxiao
- * @Last Modified time: 2019-09-20 15:39:20
+ * @Last Modified time: 2019-09-21 21:07:18
  */
 /*虽然移动端的（安卓和IOS）浏览器大部分都是webkit内核的，但是由于很多手机操作系统
  *版本过低（尤其是安卓手机）,导致很多css3新特性不能有效识别，此时我们使用的大部分
@@ -32,16 +32,18 @@ body {
     background: #ffffff;
 }
 
-/* loading */
 .loadingBox,
 .phoneBox,
-.messageBox {
+.messageBox,
+.cubeBox,
+.detailBox{
     display: none;
     height: 100%;
     overflow: hidden;
     position: relative;
 }
 
+/* loading */
 .loadingBox {
     background: #000000;
 
@@ -203,7 +205,7 @@ body {
 
 /* message */
 .messageBox {
-    display: block;
+    // display: block;
     background: #eaeaea;
 
     .wrapper {
@@ -323,5 +325,110 @@ body {
     to {
         transform: translateY(0rem);
         opacity: 1;
+    }
+}
+
+/* cube */
+.cubeBox{
+    // display: block;
+    background: url("../img/zf_cubeBg.jpg") no-repeat;
+
+    .cube{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -2.55rem 0 0 -2.55rem;
+        width: 5.1rem;
+        height: 5.1rem;
+
+        li{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            img{
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    .tip{
+        position: absolute;
+        bottom: .5rem;
+        left: 50%;
+        margin-left: -1.97rem;
+        width: 3.94rem;
+        height: .44rem;
+    }
+}
+/* 实现魔方的3D效果 */
+.cubeBox{
+    //1.给需要实现3D变形的元素舞台设置视距
+    perspective: 2000px;
+    .cube{
+        //2.给需要操作的元素设置3D变形效果
+        transform-style: preserve-3d;
+
+        //3.基于transform实现3D变形
+        li{
+            &:nth-child(1){
+                transform: translateZ(2.55rem);
+            }
+            &:nth-child(2){
+                transform: translateZ(-2.55rem) rotateY(180deg);
+            }
+            &:nth-child(3){
+                transform: translateX(2.55rem) rotateY(90deg);
+            }
+            &:nth-child(4){
+                transform: translateX(-2.55rem) rotateY(-90deg);
+            }
+            &:nth-child(5){
+                transform: translateY(-2.55rem) rotateX(90deg);
+            }
+            &:nth-child(6){
+                transform: translateY(2.55rem) rotateX(-90deg);
+            }
+        }
+        //4.给魔方一个初始的旋转角度，让我们看到3D效果,旋转后魔方太大，缩小一点
+        transform: scale(0.6) rotateX(-35deg) rotateY(35deg);
+        transition: .3s;
+    }
+}
+
+/* detail */
+.detailBox{
+    .swiper-container{
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        
+        .swiper-slide{
+            position: relative; //每一个页面中的元素相对于自己的页面进行定位
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            
+            &:nth-child(2){
+                // width: 100%;
+                background-color: #fff9c1;
+            }
+            &:nth-child(3){
+                background-color: #e45454;
+            }
+            &:nth-child(4){
+                background-color: #fac471;
+            }
+            &:nth-child(5){
+                background-color: #fbffe8;
+            }
+            &:nth-child(6){
+                background-color: #5975ff;
+            }
+        }
     }
 }
