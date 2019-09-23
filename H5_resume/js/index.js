@@ -51,6 +51,8 @@ let loadingRender = (function () {
             $loadingBox.css('display', 'block');
             run(done);
             maxDelay(done);
+
+            
         }
     }
 })();
@@ -222,7 +224,7 @@ let messageRender = (function () {
 
             //=>SUBMIT
             $submit.tap(handleSubmit);
-            console.log(demonMusic);
+            // console.log(demonMusic);
             //=>MUSIC
             demonMusic.play();
         }
@@ -284,6 +286,13 @@ let cubeRender = (function () {
             cube.rotateX = -35;
             cube.rotateY = 35; //记录初始的旋转角度【存储到自定义属性】
             $cube.on('touchstart', start).on('touchmove', move).on('touchend', end);
+            $cubeList.tap(function () {
+                $cubeBox.css('display', 'none');
+
+                //=>跳转到详情区域,通过传递点击LI的索引,让其定位到具体的SLIDE
+                let index = $(this).index();
+                detailRender.init(index);
+            });
         }
     }
 })();
@@ -291,22 +300,17 @@ let cubeRender = (function () {
 /* detail */
 let detailRender = (function () {
     let $detailBox = $('.detailBox'),
-        swiper = null;
+        swiper = null,
+        $dl = $('.page1>dl');
     let swiperInit = function swiperInit() {
         swiper = new Swiper('.swiper-container', {
             //这里放你需要实现的效果
             effect: "coverflow",
-            // loop:true
+            // loop:true,
             // freeMode: true,
             // slidesPerView: 'auto',
-            observer: true, //修改swiper自己或子元素时，自动初始化swiper
-            observeParents: true, //修改swiper的父元素时，自动初始化swiper
-            onInit:(swiper)=>{
-                //切换动画成功执行的回调函数（参数是当前初始化的实例）
-            },
-            onTransitonEnd:(swiper)=>{
-                //切换动画完成执行的回调函数
-            }
+            onInit: move,
+            onTransitionEnd: move
         });
         /* 
          *实例的私有属性：
@@ -316,15 +320,52 @@ let detailRender = (function () {
          *实例的公有方法
          *1.slideTo：切换到指定索引的slide
          *....
-        */
+         */
     }
+
+    let move = function move(swiper) {
+        //=>swiper:当前创建的实例
+        //1.判断当前是否为第一个SLIDE:如果是让3D菜单展开,不是收起3D菜单
+        let activeIn = swiper.activeIndex,
+            slideAry = swiper.slides;
+        // console.log(activeIn,slideAry);
+        if (activeIn === 0) {
+            $dl.makisu({
+                selector: 'dd',
+                overlap: 0.6,
+                speed: 0.8
+            });
+            $dl.makisu('open');
+        } else {
+            $dl.makisu({
+                selector: 'dd',
+                speed: 0
+            });
+            $dl.makisu('close');
+        }
+
+        //2.滑动到哪一个页面，把当前页面设置对应的ID，其余页面移除ID即可
+        slideAry.forEach((item, index) => {
+            if (activeIn === index) {
+                item.id = `page${index + 1}`;
+                return;
+            }
+            item.id = null;
+        });
+    };
     return {
-        init: function () {
+        init: function (index = 0) {
             $detailBox.css('display', 'block');
-            swiperInit();
+            // swiperInit();
+            if (!swiper) {
+                //防止重复初始化
+                swiperInit();
+            }
+            swiper.slideTo(index, 0); //=>直接运动到具体的SLIDE页面(第二个参数是切换的速度：0立即切换没有切换的动画效果)
         }
     }
 })();
+
 /* 开发过程中，由于当前项目板块众多（每一个板块都是单例），我们最好规划一种机制：通过标识的判
  *断可以让程序只执行对应板块的内容，这样开发哪一个板块，我们就把标识改为啥（hash路由控制）
  */
