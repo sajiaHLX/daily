@@ -6,10 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>QQMusic</title>
+    <link rel="shortcut icon" href="#" />
     <link rel="stylesheet" href="css/reset.min.css">
-    <link rel="stylesheet" href="css/index.less">
+    <link rel="stylesheet/less" href="css/index.less">
     <script src="js/less-2.5.3.min.js"></script>
     <script src="js/prefixfree.min.js"></script>
+    <!-- REM -->
+    <script>
+        ;(function anonymous(window){
+            let computedREM=function computedREM(){
+                let winW=document.documentElement.clientWidth,
+                    desW=640;
+                if(winW>=640){
+                    document.documentElement.style.fontSize='100px';
+                    return;
+                }
+                document.documentElement.style.fontSize=winW/desW*100+'px';
+            };
+            computedREM();
+            window.addEventListener('resize',computedREM);
+        })(window);
+    </script>
 </head>
 
 <body>
@@ -17,9 +34,11 @@
         <!-- bg-img -->
         <img src="img/myDream.jpg" alt="" class="backgroundImg">
         <div class="backgroundMark"></div>
-
         <audio src="img/myDream.m4a"></audio>
 
+        <!-- audio -->
+        <audio src="img/myDream.m4a" preload="none" id="musicAudio"></audio>
+        
         <!-- header -->
         <header class="headerBox">
             <img src="img/myDream.jpg" alt="" class="pic">
@@ -54,6 +73,7 @@
         </footer>
     </main>
     <script src="js/zepto.min.js"></script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
