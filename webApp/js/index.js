@@ -80,9 +80,7 @@ let messageRender = (function () {
             $.ajax({
                 url: "aside.json",
                 dataType: 'json',
-                success: function(data){
-                    console.log(data);
-                }
+                success: resolve
             })
         });
     };
@@ -98,17 +96,10 @@ let messageRender = (function () {
         $messageBox.css('display', 'block');
     };
     let swiperInit=function swiperInit(){
-        let swiper=new Swiper('.messageCon',{
+        var mySwiper=new Swiper('.messageCon',{
             loop:true,
-            autoplay:{
-                autoplay:true,
-                // disableOnInteraction:false
-            },
+            autoplay:true,
             direction : 'vertical'
-            // pagination:{
-            //     el:'.swiper-pagination',
-            //     type:'fraction'
-            // }
         });
     } ;
     return {
