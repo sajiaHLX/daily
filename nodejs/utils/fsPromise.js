@@ -17,7 +17,14 @@ let dirname = path.resolve();
                 }
                 resolve(result || '');
             }];
-            item==='readFile'?arg.unshift('utf-8'):null;
+            if(item==='readFile'){
+                //非图片或者音视频等富媒体资源设置utf-8
+                if(!/(JPG|JPEG|PNG|GIF|SVG|ICO|BMP|EOT|TTF|WOFF|MP3|MP4|OGG|WAV|M4A|WMV|AVI)$/i.test(pathname)){
+                    arg.unshift('utf-8');
+                }
+                
+            }
+            // item==='readFile'?arg.unshift('utf-8'):null;
             item==='copyFile'?arg.unshift(copypath):null;
             fs[item](pathname,...arg);
         });
