@@ -4,13 +4,19 @@
   "description": "",
   "main": "2.js",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cross-env": "^6.0.2",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
     "mime": "^2.4.4"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "server": "node server.js"
+    "start": "node server1.js",
+    "server": "node server1.js",
+    "dev": "cross-env NODE_ENV=dev node index.js",
+    "pro": "cross-env NODE_ENV=pro node index.js",
+    "test": "cross-env NODE_ENV=test node index.js"
   },
   "author": "",
   "license": "ISC"
