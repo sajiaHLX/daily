@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="#">
+    <title>Document</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background: #ecf0f1;
+        }
+
+        .slidershow {
+            width: 800px;
+            height: 480px;
+            overflow: hidden;
+        }
+
+        .middle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translate(-50%);
+            display: flex;
+        }
+
+        .bar {
+            width: 50px;
+            height: 10px;
+            border: 2px solid #ffffff;
+            margin: 6px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        /*         .bar:hover {
+            background: #ffffff;
+        } */
+
+        input[name="r"] {
+            position: absolute;
+            visibility: hidden;
+        }
+
+        .slides {
+            width: 500%;
+            height: 100%;
+            display: flex;
+        }
+
+        .slide {
+            width: 20%;
+            transition: 0.6s;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #r1:checked~.s1 {
+            margin-left: 0;
+        }
+
+        #r2:checked~.s1 {
+            margin-left: -20%;
+        }
+
+        #r3:checked~.s1 {
+            margin-left: -40%;
+        }
+
+        #r4:checked~.s1 {
+            margin-left: -60%;
+        }
+
+        #r5:checked~.s1 {
+            margin-left: -80%;
+        }
+
+        .action {
+            background: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slidershow middle">
+        <div class="slides">
+            <input type="radio" name="r" id="r1" checked>
+            <input type="radio" name="r" id="r2">
+            <input type="radio" name="r" id="r3">
+            <input type="radio" name="r" id="r4">
+            <input type="radio" name="r" id="r5">
+
+
+            <div class="slide s1">
+                <img src="QQ图片20190916090214 (3).jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="QQ图片20190916090214 (3).jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="QQ图片20190916090214 (3).jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="QQ图片20190916090214 (3).jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="QQ图片20190916090214 (3).jpg" alt="">
+            </div>
+        </div>
+        <div class="navigation">
+            <label for="r1" class="bar"></label>
+            <label for="r2" class="bar"></label>
+            <label for="r3" class="bar"></label>
+            <label for="r4" class="bar"></label>
+            <label for="r5" class="bar"></label>
+        </div>
+    </div>
+    <script>
+        var slidershow = document.getElementsByClassName("slidershow"),
+            bar = document.getElementsByClassName("bar"),
+            slides = document.getElementsByClassName("slides");
+        bar[0].classList.add("action");
+        var addColor = function () {
+            for (var i = 0; i < bar.length; i++) {
+                if ("style" in bar[i]) {
+                    bar[i].classList.remove("action");
+                } else {
+                    console.log("wu");
+                }
+            }
+            this.classList.add("action");
+        };
+        for (item in bar) {
+            bar[item].onclick = addColor;
+        }
+    </script>
+</body>
+
+</html>
