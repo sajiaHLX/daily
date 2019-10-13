@@ -1,53 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shotcut icon" href="#">
-    <link rel="stylesheet" href="../reset.min.css">
     <title>Document</title>
-
     <style>
-        /* #ageInp{
-            width: 45px;
-        } */
-        .parentDiv {
-            height: 300vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        header,footer{
+            height: 100px;
+            width: 100%;
+            background-color: aqua;
+        }
+        .container{
+            height: 300px;
+            padding-left: 200px;
+            padding-right: 300px;
+        }
+        .container div{
+            float: left;
+            position: relative;
+        }
+        .left{
+            width: 200px;
+            height: 300px;
+            background-color: aquamarine;
+
+            margin-left: -100%;
+            left: -200px;
+        }
+        .middle{
+            width: 100%;
+            height: 300px;
+            background-color: blueviolet;
+        }
+        .right{
+            width: 300px;
+            height: 300px;
+            background-color:coral;
+
+            margin-left:-300px;
+            right: -300px;
         }
     </style>
 </head>
-
 <body>
-    <div class="parentDiv">
-        <div id="divId" class="exampleDiv">hello </div>
-        <div id="divId2" class="exampleDiv">hello </div>
-        <div id="divId3" class="exampleDiv">hello </div>
+    <header>这是头部</header>
+    <div class="container">
+        <div class="middle">中间栏</div>
+        <div class="left">左栏</div>
+        <div class="right">右栏</div>
     </div>
-    <script>
-        var str = '&lt;&quot;&gt;';
-        String.deentityify = function (str) {
-            var entity = {
-                quot: '"',
-                lt: '<',
-                gt: '>'
-            };
-            return function (str) {
-                return str.replace(/&([^&;]+);/g,
-                    function (a, b) {
-                        var r = entity[b];
-                        return typeof r === 'string' ? r : a;
-                    }
-                );
-            };
-        }();
-        console.log(String.deentityify(str));
-    </script>
+    <footer>这是底部</footer>
 </body>
-
 </html>
