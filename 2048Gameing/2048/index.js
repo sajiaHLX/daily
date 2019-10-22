@@ -66,7 +66,7 @@ function updateBoardView() {
 //随机选一个格子进行初始化
 function generateOneNumber() {
     if (nospace(board)) return false;
-
+                                    
     var ranx = parseInt(Math.floor(Math.random() * 4));
     var rany = parseInt(Math.floor(Math.random() * 4));
 
@@ -296,8 +296,8 @@ function showNumberWithAnimation(i, j, randNumber) {
     })
     numberCell.append(randNumber);
     numberCell.animate({
-        width: "100px",
-        height: "100px",
+        width: "100",
+        height: "100",
         top: getPosition(i),
         left: getPosition(j)
     }, 50);
