@@ -5,42 +5,92 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="#" type="image/x-icon">
   <title>vueTest</title>
   <style>
-    [v-cloak]{
-      display: none;
-    }
+    
+    
   </style>
 </head>
 
 <body>
-  <!-- <div id="app">{{message}}
-    <h2>{{first+second}}</h2>
-    <h2>{{first+' '+second}}</h2>
-    <h2 v-once>{{first}} {{second}}</h2>
-    <h2>{{content*2}}</h2>
-    <h2>{{link}}</h2>
-    <h2 v-html="link"></h2>
-    <h2 v-text="message"></h2> -->
-  <div id="app">
-    <h2>{{message}}</h2>
-    <h2 v-cloak>{{message}}</h2>
+  <!-- <div id="app">
+    当前数值为：{{content}}
+    <button @click="increment()">+</button>
+    <button @click="decrement()">-</button>
+    <div @click="divclick">
+      aaa
+      <button @click.stop='btn1click'>按钮1</button>
+      <br>
+      <a href="http://www.baidu.com" @click.prevent>bbb</a>
+      <input type="text" @keyup.enter='keyup'><br>
+      <button @click.once="onceClick">an</button>
+    </div>
   </div>
-
   <script src="js/vue.js"></script>
   <script>
-    setTimeout(function(){
-      const app = new Vue({
+    const app = new Vue({
       el: '#app',
       data: {
         message:'i love code',
-        first:'firstname',
-        second:'lastname',
-        content:100,
-        link:'<a href="http://www.baidu.com">百度一下</a>'
+        content:1,
+      },
+      methods: {
+        increment(){
+          this.content++;
+        },
+        decrement(){
+          this.content--;
+        },
+        btn1click(){
+          console.log("btn1click");
+        },
+        divclick(){
+          console.log('divclick');
+        },
+        keyup(){
+          console.log("keyup");
+        },
+        onceClick(){
+          console.log("abc");
+        }
       }
     })
-    },1000)
-  </script>
+    
+  </script> -->
+  
+  <!-- <div id="app">
+    <h2 v-if="isshow">{{message}}</h2>
+    <h2 v-else>{{message1}}哈哈哈</h2>
+    {{message}}
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        isshow:true,
+        message:'i love code',
+        message1:'what f'
+      }
+    })
+  </script> -->
+
+<div id="app">
+  <h2 v-if="score>=90">优秀</h2>
+  <h2 v-else-if="score>=80">良好</h2>
+  <h2 v-else>舒服</h2>
+  {{message}}
+</div>
+<script src="js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message:'i love code',
+      score:90,
+    }
+  })
+</script>
 </body>
 </html>
