@@ -535,5 +535,31 @@
       }
     })
   </script> -->
+
+  <!-- 组件模板分离写法二 -->
+  <!-- <div id="app">
+    {{message}}
+    <cpn1></cpn1>
+  </div>
+  <template name="component-name" id="cpn">
+    <div>
+      <h2>我是测试</h2>
+      <p>我是内容</p>
+    </div>
+  </template>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code'
+      },
+      components:{
+        cpn1:{
+          template:'#cpn'
+        }
+      }
+    })
+  </script> -->
 </body>
 </html>
