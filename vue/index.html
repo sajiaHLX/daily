@@ -7,9 +7,35 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="shortcut icon" href="#" type="image/x-icon">
   <title>vueTest</title>
+  <!-- <style>
+    .active{
+      color: red;
+    }
+    li{
+      user-select: none;
+      cursor: pointer;
+    }
+    
+  </style> -->
+
   <style>
-    
-    
+    table{
+      width: 600px;
+      border: 1px solid #e9e9e9;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+    th,td{
+      
+      padding: 8px 16px;
+      border: 1px solid #e9e9e9;
+      text-align: center;
+    }
+    th{
+      background: #f7f7f7;
+      color: #5c6b77;
+      font-weight: 600;
+    }
   </style>
 </head>
 
@@ -76,7 +102,7 @@
     })
   </script> -->
 
-<div id="app">
+  <!-- <div id="app">
   <h2 v-if="score>=90">优秀</h2>
   <h2 v-else-if="score>=80">良好</h2>
   <h2 v-else>舒服</h2>
@@ -91,6 +117,423 @@
       score:90,
     }
   })
-</script>
+</script> -->
+
+  <!-- <div id="app">
+    <span v-if="isUser">
+      <label for="username">账号登录：</label>
+      <input type="text" placeholder="用户账号登录" id="username">
+    </span>
+    <span v-else>
+      <label for="email">邮箱登录：</label>
+      <input type="text" placeholder="用户邮箱登录" id="email">
+    </span>
+    <h2 v-show="isshow">{{message}}</h2>
+
+    <button @click="user()">账号/邮箱登录</button>
+    <button @click="user()">邮箱登录</button>
+
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code',
+        isUser:true,
+        isshow:true,
+      },
+      methods: {
+        user(){
+          this.isUser=!this.isUser;
+        }
+      }
+
+
+    })
+  </script> -->
+
+  <!-- <div id="app">
+    <ul>
+      <li v-for="(item,index) in names">{{item}}</li>
+      <button @click="btn1click">按钮</button>
+    </ul>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code',
+        names:['hlx','lgn','lzy','zyx','hdy'],
+      },
+      methods: {
+        btn1click(){
+          // this.names.push('aaa','bbb');
+          // this.names.pop()
+          // this.names.shift();
+          // this.names.unshift('aaa','bbb');
+          // this.names.splice(1,1);
+          // this.names.splice(1,0,'aaa','bbb')
+          // this.names.splice(1,1,'aaa')
+          // this.names.sort()
+          // this.names.reverse();
+          // this.names[1]='abccc';
+          Vue.set(this.names,0,'adf')
+        }
+      }
+    })
+  </script> -->
+
+  <!-- <div id="app">
+    <ul>
+      <li v-for="(item,index) in movies" 
+      :class="{active:currentIndex == index}"
+      @click="liclick(index)">
+      {{item}}</li>
+    </ul>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code',
+        movies:['hai','zei','wang','h'],
+        currentIndex:0,
+      },methods: {
+        liclick(index){
+          this.currentIndex=index;
+        }
+      }
+    })
+  </script> -->
+
+  <!-- 书籍购物车实例 -->
+  <!-- <div id="app">
+    <div>
+        <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>书籍名称</th>
+                <th>出版日期</th>
+                <th>价格</th>
+                <th>购买数量</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody v-if="books.length">
+              <tr v-for="(item,index) in books">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.date}}</td>
+                <td>{{item.price | showPrice}}</td>
+                <td>
+                  <button @click="dec(item)" :disabled="item.count<=1">-</button>
+                  {{item.count}}
+                  <button @click="inc(item)">+</button>
+                </td>
+                <td><button @click="removeClick(index)">移除</button></td>
+              </tr>
+            </tbody>
+            <tbody v-else>
+              <tr>
+                <td colspan="6">购物车为空</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>总价格：{{totalPrice}}元</h2>
+    </div>
+    <!-- <div v-else><h2>购物车为空</h2></div>
+  </div>
+  <script src="./js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el:"#app",
+      data:{
+        books:[
+          {
+            id:1,
+            name:'《算法导论》',
+            date:'2006-9',
+            price:85.00,
+            count:1
+          },
+          {
+            id:2,
+            name:'《红宝书》',
+            date:'2007-9',
+            price:95.00,
+            count:1
+          },
+          {
+            id:3,
+            name:'《蓝宝书》',
+            date:'2008-9',
+            price:75.00,
+            count:1
+          },
+          {
+            id:4,
+            name:'《绿宝书》',
+            date:'2009-9',
+            price:65.00,
+            count:1
+          }
+        ],
+        
+      },
+      methods: {
+        inc(item){
+          return item.count++;
+        },
+        dec(item){ 
+          return item.count--;
+        },
+        removeClick(index){
+          this.books.splice(index,1);
+        }
+      },
+      computed: {
+        totalPrice(){
+          return this.books.reduce(function(preValue,book){
+            // console.log(book.price);
+            return preValue+book.price*book.count; 
+          },0)
+        }
+      },
+      filters: {
+        showPrice(price){
+          return '￥'+price.toFixed(2);
+        }
+      }
+
+    })
+  </script> -->
+
+  <!-- radio和v-model结合，有v-model就不需要name属性也可以实现单选 -->
+  <!-- <div id="app">
+    <label for="male">
+      <input type="radio" id="male" value="男" v-model="sex">男
+    </label>
+    <label for="female">
+      <input type="radio" id="female" value="女" v-model="sex">女
+    </label>
+    {{sex}}
+    {{message}}
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code',
+        sex:'男',
+      },
+      methods: {
+        valueChange(event){
+          this.message=event.target.value;
+        }
+      }
+    })
+  </script> -->
+
+  <!-- v-model和checkbox结合，单选框实现选中后才可以进行下一步 -->
+  <!-- <div id="app">
+    <label for="argeement">
+        <input type="checkbox" id="argeement" v-model="isAgree">同意协议
+    </label>
+    <h2>你的选择是{{isAgree}}</h2>
+    <button :disabled="!isAgree">下一步</button>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code',
+        isAgree:false,
+      }
+    })
+  </script> -->
+  
+  <!-- v-model和Checkbox结合，多选框 -->
+  <!-- <div id="app">
+    <input type="checkbox" value="篮球" v-model="hobbies">篮球
+    <input type="checkbox" value="足球" v-model="hobbies">足球
+    <input type="checkbox" value="乒乓球" v-model="hobbies">乒乓球
+    <input type="checkbox" value="羽毛球" v-model="hobbies">羽毛球
+    <h2>{{hobbies}}</h2>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code',
+        hobbies:[]
+      }
+    })
+  </script> -->
+
+  <!-- v-model结合select -->
+  <!-- <div id="app">
+    <select name="fruit" id="fruit" v-model="fruit">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    {{fruit}}
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code',
+        fruit:'1',
+      }
+    })
+  </script>-->
+
+  <!-- 组件的使用 -->
+  <!-- <div id="app">
+    <cpn></cpn>
+    {{message}}
+  </div>
+  <cpn></cpn>
+  <script src="js/vue.js"></script>
+  <script>
+    const cpn =Vue.extend({
+      template:`<div>
+        <h2>我是内容</h2>
+        <p>我是测试</p>
+      </div>`
+    })
+    Vue.component('cpn',cpn)
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code'
+      }
+    })
+  </script> -->
+  <!-- <div id="app">
+    <mycon1></mycon1>
+    <mycon2></mycon2>
+    {{message}}
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const con1= Vue.extend({
+      template:`
+        <div>
+          <h2>我是测试1</h2>
+        <p>我是小测试1</p>
+        <p>我是小测试1</p>
+        </div>
+      `
+    });
+    const con2= Vue.extend({
+      template:`
+        <div>
+            <h2>我是测试</h2>
+          <p>我是小测试2</p>
+          <p>我是小测试2</p>
+            </div>
+      `
+    });
+    
+    Vue.component('mycon1',con1);
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code'
+      },
+      components: {
+        mycon2:con2
+      }
+    })
+  </script> -->
+  
+  <!-- 组件语法糖 -->
+  <!-- <div id="app">
+    {{message}}
+    <cpn2></cpn2>
+    <cpn1></cpn1>
+    <cpn3></cpn3>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    Vue.component('cpn3',{
+      template:`
+        <div>
+          <h2>我是测试3</h2>
+          <p>我是小测试3</p>
+          <p>我是小测试3</p>
+        </div>`
+    })
+    const cpn2=Vue.extend({
+      template:`
+        <div>
+            <cpn1></cpn1>
+          <h2>我是测试2</h2>
+          <p>我是小测试2</p>
+          <p>我是小测试2</p>
+          
+        </div>
+      `
+    })
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code'
+      },
+      components:{
+        cpn1:{
+          template:`
+            <div>
+              <h2>我是测试1</h2>
+              <p>我是小测试1</p>
+              <p>我是小测试1</p>
+            </div>`
+        }
+      },
+      
+    })
+  </script> -->
+
+  <!-- 组件模板的分离写法 -->
+  <!-- <div id="app">
+    {{message}}
+    <cpn></cpn>
+    <cpn2></cpn2>
+  </div>
+  <script type="text/x-template" id="cpn">
+    <div>
+      <h2>我是标题</h2>
+      <p>woshasd</p>
+    </div>
+  </script>
+  <script src="js/vue.js"></script>
+  <script>
+    Vue.component('cpn',{
+      template:'#cpn'
+    })
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code'
+      },
+      components: {
+        cpn2:{
+          template:'#cpn'
+        }
+      }
+    })
+  </script> -->
 </body>
 </html>
