@@ -18,25 +18,30 @@
     
   </style> -->
 
-  <style>
-    table{
+  <!-- <style>
+    table {
       width: 600px;
       border: 1px solid #e9e9e9;
       border-collapse: collapse;
       border-spacing: 0;
     }
-    th,td{
-      
+
+    th,
+    td {
+
       padding: 8px 16px;
       border: 1px solid #e9e9e9;
       text-align: center;
     }
-    th{
+
+    th {
       background: #f7f7f7;
       color: #5c6b77;
       font-weight: 600;
     }
-  </style>
+  </style> -->
+
+
 </head>
 
 <body>
@@ -84,7 +89,7 @@
     })
     
   </script> -->
-  
+
   <!-- <div id="app">
     <h2 v-if="isshow">{{message}}</h2>
     <h2 v-else>{{message1}}哈哈哈</h2>
@@ -213,39 +218,39 @@
   <!-- <div id="app">
     <div>
         <table>
-            <thead>
-              <tr>
-                <th></th>
-                <th>书籍名称</th>
-                <th>出版日期</th>
-                <th>价格</th>
-                <th>购买数量</th>
-                <th>操作</th>
-              </tr>
-            </thead>
-            <tbody v-if="books.length">
-              <tr v-for="(item,index) in books">
-                <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.date}}</td>
-                <td>{{item.price | showPrice}}</td>
-                <td>
-                  <button @click="dec(item)" :disabled="item.count<=1">-</button>
-                  {{item.count}}
-                  <button @click="inc(item)">+</button>
-                </td>
-                <td><button @click="removeClick(index)">移除</button></td>
-              </tr>
-            </tbody>
-            <tbody v-else>
-              <tr>
-                <td colspan="6">购物车为空</td>
-              </tr>
-            </tbody>
-          </table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>书籍名称</th>
+              <th>出版日期</th>
+              <th>价格</th>
+              <th>购买数量</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody v-if="books.length">
+            <tr v-for="(item,index) in books">
+              <td>{{item.id}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.date}}</td>
+              <td>{{item.price | showPrice}}</td>
+              <td>
+                <button @click="dec(item)" :disabled="item.count<=1">-</button>
+                {{item.count}}
+                <button @click="inc(item)">+</button>
+              </td>
+              <td><button @click="removeClick(index)">移除</button></td>
+            </tr>
+          </tbody>
+          <tbody v-else>
+            <tr>
+              <td colspan="6">购物车为空</td>
+            </tr>
+          </tbody>
+        </table>
           <h2>总价格：{{totalPrice}}元</h2>
     </div>
-    <!-- <div v-else><h2>购物车为空</h2></div>
+    
   </div>
   <script src="./js/vue.js"></script>
   <script>
@@ -357,7 +362,7 @@
       }
     })
   </script> -->
-  
+
   <!-- v-model和Checkbox结合，多选框 -->
   <!-- <div id="app">
     <input type="checkbox" value="篮球" v-model="hobbies">篮球
@@ -458,7 +463,7 @@
       }
     })
   </script> -->
-  
+
   <!-- 组件语法糖 -->
   <!-- <div id="app">
     {{message}}
@@ -536,15 +541,252 @@
     })
   </script> -->
 
-  <!-- 组件模板分离写法二 -->
+  <!-- 组件模板分离写法二，以及组件中数据的存储 -->
   <!-- <div id="app">
     {{message}}
     <cpn1></cpn1>
   </div>
   <template name="component-name" id="cpn">
     <div>
-      <h2>我是测试</h2>
+      <h2>{{title}}</h2>
       <p>我是内容</p>
+    </div>
+  </template>
+  <script src="js/vue.js"></script>
+  <script>
+    Vue.component('cpn1',{
+      template:'#cpn',
+      data(){
+        return {
+          title:'我是标题'
+        }
+      }
+    })
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code'
+      }
+    })
+  </script> -->
+
+  <!-- 组件中的数据必须是一个函数 -->
+  <!-- <div id="app">
+    {{message}}
+    <cpn></cpn>
+  </div>
+  <template id="cpn" name="component-name">
+    <div>
+      <h2>当前数字：{{count}}</h2>
+      <button @click="inc()">+</button>
+      <button @click="dec()">-</button>
+    </div>
+  </template>
+  <script src="js/vue.js"></script>
+  <script>
+    /* Vue.component('cpn', {
+      template: '#cpn',
+      data() {
+        return {
+          count: 0
+        }
+      },
+      methods: {
+        inc() {
+          this.count++;
+        },
+        dec() {
+          this.count--;
+        }
+      },
+    }) */
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'i love code'
+      },
+      components: {
+        cpn: {
+          template: '#cpn',
+          data() {
+            return {
+              count: 0
+            }
+          },
+          methods: {
+            inc() {
+              this.count++;
+            },
+            dec() {
+              this.count--;
+            }
+          },
+        }
+      }
+    })
+  </script> -->
+
+  <!-- 组件通信，父组件向子组件传递数据-->
+  <!-- <div id="app">
+    <cpn :cmovies="movies" :c-message="message"></cpn>
+  </div>
+
+  <template id="cpn" name="component-name">
+    <div>
+      <h2>{{cmovies}}</h2>
+      <ul>
+        <li v-for="item in cmovies" >{{item}}</li>
+      </ul>
+      <p>{{cMessage}}</p>
+    </div>
+  </template>
+  <script src="js/vue.js"></script>
+  <script>
+    /* const cpn={
+      template:'#cpn',
+      props:['cmovies','smessage']
+    } */
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code',
+        movies:['海贼王','海王','海尔兄弟']
+      },
+      components: {
+        cpn:{
+          template:'#cpn',
+          // props:['cmovies','smessage']
+          props: {
+            // 1.限制数据的属性
+            // cmovies:Array,
+            
+            //2.限制数据的属性和默认值，以及是否必须
+            cMessage: {
+              type: String,
+              default: 'aaa',
+              required:true
+            },
+            cmovies:{
+              type:Array,
+              default:[]
+            }
+          },
+        }
+      }
+      
+    })
+  </script> -->
+
+  <!-- 组件通信，子组件向父组件传递数据 -->
+  <!-- <div id="app">
+    <cpn @itemclick="cpnclick"></cpn>
+  </div>
+  <template id="cpn" name="component-name">
+    <div>
+      <button v-for="item in categories" @click="btnclick(item)">{{item.name}}</button>
+    </div>
+  </template>
+  <script src="js/vue.js"></script>
+  <script>
+
+    const cpn={
+      template:"#cpn",
+      data(){
+        return {
+          categories:[
+            {id:'aaa',name:'热门推荐'},
+            {id:'bbb',name:'手机数码'},
+            {id:'ccc',name:'家用家电'},
+            {id:'ddd',name:'电脑办公'},
+          ]
+        }
+      },
+      methods: {
+        btnclick(item) {
+          // console.log(item);
+          //发出事件
+          this.$emit('itemclick',item)
+        },
+      },
+    }
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code'
+      },
+      components: {
+        cpn,
+      },
+      methods: {
+        cpnclick(item) {
+          console.log(item);
+        },
+      },
+    })
+  </script> -->
+
+  <!-- 父子组件通信的案例 -->
+  <!-- <div id="app">
+    总数:{{count}}
+    <cpn @inc="inc" @dec="dec"></cpn>
+  </div>
+  <template id="cpn" name="component-name">
+    <div>
+      <button @click="inc">+</button>
+      <button @click="dec">-</button>
+    </div>
+  </template>
+  <script src="js/vue.js"></script>
+  <script>
+    const cpn={
+      template:'#cpn',
+      methods: {
+        inc() {
+          this.$emit('inc')
+        },
+        dec(){
+          this.$emit('dec')
+        }
+      },
+    }
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'i love code',
+        count:0
+      },
+      components: {
+        cpn,
+      },
+      methods: {
+        inc() {
+          this.count++;
+        },
+        dec(){
+          this.count--;
+        }
+      },
+    })
+    
+  </script> -->
+
+  <!-- 父子组件双向绑定案例 -->
+  <!-- <div id="app">
+    {{num1}}<br/>
+    {{num2}}
+    <cpn :number1="num1" :number2="num2" 
+    @num1change="num1change" @num2change="num2change" 
+    ></cpn>
+  </div>
+  <template id="cpn" name="component-name">
+    <div>
+      <h2>props:{{number1}}</h2>
+      <h2>data:{{dnumber1}}</h2>
+      <input type="text" :value="dnumber1" @input="num1input" placeholder="我是测试">
+      <h2>props:{{number2}}</h2>
+      <h2>data:{{dnumber2}}</h2>
+      <input type="text" :value="dnumber2" @input="num2input" placeholder="我是测试">
     </div>
   </template>
   <script src="js/vue.js"></script>
@@ -552,14 +794,49 @@
     const app = new Vue({
       el: '#app',
       data: {
-        message:'i love code'
+        message:'i love code',
+        num1:1,
+        num2:2
       },
-      components:{
-        cpn1:{
-          template:'#cpn'
+      methods: {
+        num1change(num1) {
+          this.num1=Number(num1)
+        },
+        num2change(num2){
+          this.num2=Number(num2)
         }
-      }
+      },
+      components: {
+        cpn:{
+          template:'#cpn',
+          props:{
+            number1:Number,
+            number2:Number
+          },
+          data(){
+            return{
+              dnumber1:this.number1,
+              dnumber2:this.number2
+            }
+          },
+          methods: {
+            num2input(event) {
+              //将input中的value赋值到dnumber中
+              this.dnumber2=event.target.value
+              //将修改后的dnumber，发送到父组件中
+              this.$emit('num2change',this.dnumber2)
+            },
+            num1input(event){
+              this.dnumber1=event.target.value
+              this.$emit('num1change',this.dnumber1)
+            }
+          },
+        }
+      },
     })
   </script> -->
+
+  <input type="text" >
 </body>
+
 </html>
