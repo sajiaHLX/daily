@@ -57,69 +57,14 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const {sum,mul}=__webpack_require__(1);
-__webpack_require__(2)
-console.log(sum(10,20));
-console.log(mul(10,20));
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-function sum(num1,num2){
-  return num1+num2
-}
-function mul(num1,num2) {  
-  return num1*num2
-}
-
-module.exports={
-  sum,mul
-}
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var content = __webpack_require__(3);
-
-if (typeof content === 'string') {
-  content = [[module.i, content, '']];
-}
-
-var options = {}
-
-options.insert = "head";
-options.singleton = false;
-
-var update = __webpack_require__(5)(content, options);
-
-if (content.locals) {
-  module.exports = content.locals;
-}
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(4)(false);
-// Module
-exports.push([module.i, "body{\r\n  background-color: aquamarine;\r\n}", ""]);
-
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -215,7 +160,7 @@ function toComment(sourceMap) {
 }
 
 /***/ }),
-/* 5 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -501,6 +446,134 @@ module.exports = function (list, options) {
     }
   };
 };
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const {sum,mul}=__webpack_require__(3);
+//依赖css文件
+__webpack_require__(4)
+//依赖less文件
+__webpack_require__(8)
+console.log(sum(10,20));
+console.log(mul(10,20));
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+function sum(num1,num2){
+  return num1+num2
+}
+function mul(num1,num2) {  
+  return num1*num2
+}
+
+module.exports={
+  sum,mul
+}
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var content = __webpack_require__(5);
+
+if (typeof content === 'string') {
+  content = [[module.i, content, '']];
+}
+
+var options = {}
+
+options.insert = "head";
+options.singleton = false;
+
+var update = __webpack_require__(1)(content, options);
+
+if (content.locals) {
+  module.exports = content.locals;
+}
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// Imports
+var getUrl = __webpack_require__(6);
+var ___CSS_LOADER_URL___0___ = getUrl(__webpack_require__(7));
+// Module
+exports.push([module.i, "body{\r\n  /* background-color: aquamarine; */\r\n  overflow: hidden;\r\n  background: url(" + ___CSS_LOADER_URL___0___ + ");\r\n  width: 1000px;\r\n  height: 1000px;\r\n}", ""]);
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function (url, needQuotes) {
+  // eslint-disable-next-line no-underscore-dangle, no-param-reassign
+  url = url.__esModule ? url.default : url;
+
+  if (typeof url !== 'string') {
+    return url;
+  } // If url is already wrapped in quotes, remove them
+
+
+  if (/^['"].*['"]$/.test(url)) {
+    // eslint-disable-next-line no-param-reassign
+    url = url.slice(1, -1);
+  } // Should url be wrapped?
+  // See https://drafts.csswg.org/css-values-3/#urls
+
+
+  if (/["'() \t\n]/.test(url) || needQuotes) {
+    return "\"".concat(url.replace(/"/g, '\\"').replace(/\n/g, '\\n'), "\"");
+  }
+
+  return url;
+};
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "47ab2689cee89f79d52e7ed79342a450.jpg";
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var content = __webpack_require__(9);
+
+if (typeof content === 'string') {
+  content = [[module.i, content, '']];
+}
+
+var options = {}
+
+options.insert = "head";
+options.singleton = false;
+
+var update = __webpack_require__(1)(content, options);
+
+if (content.locals) {
+  module.exports = content.locals;
+}
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// Module
+exports.push([module.i, "body {\n  font-size: 50px;\n  color: red;\n}\n", ""]);
+
 
 /***/ })
 /******/ ]);
