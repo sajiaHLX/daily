@@ -10,7 +10,6 @@ module.exports={
     publicPath:'dist/'
   },
   module:{
-
     rules:[
       //css打包需要的
       {
@@ -66,9 +65,9 @@ module.exports={
     }
   },
   plugins:[
-  //   new webpack.BannerPlugin({
-  //     banner:'made by hlx'
-  //   })
+    new webpack.BannerPlugin({
+      banner:'made by hlx'
+    }),
     new HtmlWebpackPlugin()
   ]
 }
