@@ -1,51 +1,30 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
+import mutations from './mutations'
+import actions from './actions'
+import getters from './getters'
+import modulesA from './modules/modulesA'
+
 //安装插件
 Vue.use(Vuex)
 
+const state={
+  counter:2,
+  student:[
+    {name:'hlx',age:23},
+    {name:'lll',age:18}
+  ],
+}
+
 //创建对象
 const store = new Vuex.Store({
-  state:{
-    counter:2,
-    student:[
-      {name:'hlx',age:23},
-      {name:'lll',age:18}
-    ],
-  },
-  mutations:{
-    increment(state){
-      state.counter++
-    },
-    decrement(state){
-      state.counter--
-    },
-    addcounter(state,count){
-      state.counter+=count
-    }
-  },
-  actions:{
-
-  },
-  getters:{
-    powerCounter(state){
-      return state.counter*state.counter
-    },
-    bigger(state) {
-      return state.student.filter(s=> s.age>=19)
-    },
-    biggerLength(state,getters){
-      return getters.bigger.length
-    },
-    biggerL(state){
-      return function(age){
-        return state.student.filter(s => s.age>age)
-      }
-    }
-  },
-
-
+  state,
+  mutations,
+  actions,
+  getters,
   modules:{
-
+    a: modulesA
   }
 })
 
