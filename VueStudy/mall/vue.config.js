@@ -1,0 +1,14 @@
+module.exports={
+  configureWebpack:{
+    resolve:{
+      alias:{
+        //内部就有一个@：'src'
+        'assets':'@/assets',
+        'common':'@/common',
+        'components':'@/components',
+        'network':'@/network',
+        'views':'@/views'
+      }
+    }
+  }
+}

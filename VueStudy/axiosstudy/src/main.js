@@ -11,6 +11,7 @@ new Vue({
   router,
   render: h => h(App)
 })
+
 request1({
   url:'data',
   params:{

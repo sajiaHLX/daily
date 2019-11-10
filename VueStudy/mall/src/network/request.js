@@ -6,7 +6,6 @@ export function request1(config) {
     })
     // 拦截请求，对请求做一些处理
     instance1.interceptors.request.use(config=>{
-      console.log(config);
       // 拦截后需要返回这个请求
       return config;
     },err=>{
@@ -14,12 +13,10 @@ export function request1(config) {
     })
     //响应拦截
     instance1.interceptors.response.use(res=>{
-      console.log(res);
       return res;
     },err=>{
       console.log(err);
     })
-
     return instance1(config)
 }
 
