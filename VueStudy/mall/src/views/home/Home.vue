@@ -1,16 +1,15 @@
 <template>
   <div id="home">
     <navBar class="home-nav">
-      <div slot="center">购物街</div>
+      <div slot="center">何林虓的壁纸库</div>
     </navBar>
     <scroll class="content" ref="scroll" 
     :probetype="3" @scroll="contentscroll" :pullUpLoad="true"
-    @pullingUp="loadmore"
-    >
+    @pullingUp="loadmore">
       <HomeSwiper :computer="computer"></HomeSwiper>
       <RecommendView :recommends="recommends"></RecommendView>
-      <FeatureView></FeatureView>
-      <TabControl class="tabcontrol" :titles="['流行','新款','经典']" @tabclick="tabclick"></TabControl>
+      <!-- <FeatureView></FeatureView> -->
+      <TabControl class="tabcontrol" :titles="['流行','最新','经典']" @tabclick="tabclick"></TabControl>
       <goodsList :goods="goods[currentTab].list"></goodsList>
     </scroll>
     <backtop @click.native="backtop" v-show="isshow"></backtop>
@@ -80,19 +79,29 @@ export default {
         }
       })
     })
-    this.getHomeGoods('pop')
-    this.getHomeGoods('news')
-    this.getHomeGoods('sell')
+    this.getHomeG('pop')
+    // this.getHomeGoods('news')
+    // this.getHomeGoods('sell')
+  },
+  mounted(){
+    this.$bus.$on('imgload',()=>{
+      this.$refs.scroll.refresh()
+    })
   },
   methods: {
     //网络请求 
-    getHomeGoods(type) {
+    getHomeG(type) {
       const page=this.goods[type].page+1
+      if(page>3){
+        console.log("已经到底了");
+        return;
+      }
       getHomeGoods(type,page).then(res=>{
+        console.log(res);
         this.goods[type].page+=1;
         this.goods[type].list.push(...res.data.goods)
         // console.log(this.goods[type].list);
-        this.$refs.scroll.finishPullUp
+        this.$refs.scroll.finishPullUp()
       })
     },
     tabclick(index){
@@ -102,9 +111,11 @@ export default {
           break;
         case 1:
           this.currentTab='news'
+          this.getHomeG(this.currentTab)
           break;
         case 2:
           this.currentTab='sell'
+          this.getHomeG(this.currentTab)
           break;
         default:
           break;
@@ -119,7 +130,7 @@ export default {
     },
     loadmore(){
       // console.log("shangla");
-      this.getHomeGoods(this.currentTab)
+      this.getHomeG(this.currentTab)
     }
   }
 }
