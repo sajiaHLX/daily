@@ -7,11 +7,12 @@ export function getHome(){
     }
   })
 }
-export function getHomeGoods(){
+export function getHomeGoods(type,page){
   return request1({
-    url:'/data',
+    url:'/home/data',
     params:{
-      id:1
+      type:type,
+      id:page
     }
   })
 }

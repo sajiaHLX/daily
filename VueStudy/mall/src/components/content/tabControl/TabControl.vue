@@ -23,6 +23,7 @@ export default {
   methods: {
     itemclick(index) {
       this.activeIndex=index;
+      this.$emit('tabclick',index)
     },
   },
 }
@@ -36,6 +37,7 @@ export default {
     line-height: 44px;
     font-size: 18px;
     background-color: #fff;
+    z-index: 999;
   }
   .tabcontrol-item{
     flex: 1;

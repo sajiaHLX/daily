@@ -1,0 +1,57 @@
+<template>
+  <div class="wrapper" ref="wrapper">
+    <div class="content">
+      <slot></slot>
+    </div>
+  </div>
+</template>
+
+<script>
+import bscroll from 'better-scroll'
+export default {
+  data () {
+    return {
+      scroll:null
+    }
+  },
+  props: {
+    probetype: {
+      type: Number,
+      default: 0
+    },
+    pullUpLoad:{
+      type:Boolean,
+      default:false
+    }
+  },
+  mounted(){
+    // 创建betterscrool对象
+    this.scroll=new bscroll(this.$refs.wrapper,{
+      click:true,
+      probeType:this.probetype,
+      pullUpLoad:this.pullUpLoad
+    })
+    // 监听滚动对象
+    this.scroll.on('scroll',(position)=>{
+      this.$emit('scroll',position)
+    })
+    // 上拉加载更多
+    this.scroll.on('pullingUp',()=>{
+      // console.log("shanglaaaaa");
+      this.$emit('pullingUp')
+    })
+
+  },
+  methods: {
+    scrollTo(x,y,time=300) {
+      this.scroll.scrollTo(x,y,time)
+    },
+    finishPullUp(){
+      this.scroll.finishPullUp()
+    }
+  },
+}
+
+</script>
+<style scoped>
+</style>
