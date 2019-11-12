@@ -3,13 +3,15 @@
     <navBar class="home-nav">
       <div slot="center">何林虓的壁纸库</div>
     </navBar>
+    <!-- 使用一个新的tabcontrol来代替划上去的 -->
+    <TabControl v-show="isshow2" class="tabcontrol" :titles="['流行','最新','经典']" @tabclick="tabclick"></TabControl>
     <scroll class="content" ref="scroll" 
     :probetype="3" @scroll="contentscroll" :pullUpLoad="true"
     @pullingUp="loadmore">
       <HomeSwiper :computer="computer"></HomeSwiper>
       <RecommendView :recommends="recommends"></RecommendView>
       <!-- <FeatureView></FeatureView> -->
-      <TabControl class="tabcontrol" :titles="['流行','最新','经典']" @tabclick="tabclick"></TabControl>
+      <TabControl id="tabcontrol" class="tabcontrol" :titles="['流行','最新','经典']" @tabclick="tabclick"></TabControl>
       <goodsList :goods="goods[currentTab].list"></goodsList>
     </scroll>
     <backtop @click.native="backtop" v-show="isshow"></backtop>
@@ -55,7 +57,8 @@ export default {
         'sell':{page:0,list:[]}
       },
       currentTab:'pop',
-      isshow:true
+      isshow:true,
+      isshow2:false
     }
   },
   created(){
@@ -97,7 +100,6 @@ export default {
         return;
       }
       getHomeGoods(type,page).then(res=>{
-        console.log(res);
         this.goods[type].page+=1;
         this.goods[type].list.push(...res.data.goods)
         // console.log(this.goods[type].list);
@@ -127,6 +129,8 @@ export default {
     },
     contentscroll(position){
       this.isshow=position.y<=-700
+      let offsetTop = document.querySelector('#tabcontrol').offsetTop
+      this.isshow2=(-position.y)>offsetTop
     },
     loadmore(){
       // console.log("shangla");
