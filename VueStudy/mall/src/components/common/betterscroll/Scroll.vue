@@ -32,7 +32,7 @@ export default {
       pullUpLoad:this.pullUpLoad
     })
     // 监听滚动对象
-    this.scroll.on('scroll',(position)=>{
+    this.scroll.on('scroll',(position)=>{ 
       this.$emit('scroll',position)
     })
     // 上拉加载更多

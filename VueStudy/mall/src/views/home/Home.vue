@@ -4,14 +4,14 @@
       <div slot="center">何林虓的壁纸库</div>
     </navBar>
     <!-- 使用一个新的tabcontrol来代替划上去的 -->
-    <TabControl v-show="isshow2" class="tabcontrol" :titles="['流行','最新','经典']" @tabclick="tabclick"></TabControl>
+    <TabControl ref="tabcontrol1" v-show="isshow2" class="tabcontrol" :titles="['流行','最新','经典']" @tabclick="tabclick"></TabControl>
     <scroll class="content" ref="scroll" 
     :probetype="3" @scroll="contentscroll" :pullUpLoad="true"
     @pullingUp="loadmore">
       <HomeSwiper :computer="computer"></HomeSwiper>
       <RecommendView :recommends="recommends"></RecommendView>
       <!-- <FeatureView></FeatureView> -->
-      <TabControl id="tabcontrol" class="tabcontrol" :titles="['流行','最新','经典']" @tabclick="tabclick"></TabControl>
+      <TabControl ref="tabcontrol" class="tabcontrol" :titles="['流行','最新','经典']" @tabclick="tabclick"></TabControl>
       <goodsList :goods="goods[currentTab].list"></goodsList>
     </scroll>
     <backtop @click.native="backtop" v-show="isshow"></backtop>
@@ -83,12 +83,13 @@ export default {
       })
     })
     this.getHomeG('pop')
-    // this.getHomeGoods('news')
-    // this.getHomeGoods('sell')
+    this.getHomeG('news')
+    this.getHomeG('sell')
   },
   mounted(){
+    const refresh=this.debounce(this.$refs.scroll.refresh,500)
     this.$bus.$on('imgload',()=>{
-      this.$refs.scroll.refresh()
+      refresh()
     })
   },
   methods: {
@@ -110,18 +111,22 @@ export default {
       switch (index) {
         case 0:
           this.currentTab='pop'
+          this.pagerefresh(this.currentTab)
           break;
         case 1:
           this.currentTab='news'
-          this.getHomeG(this.currentTab)
+          this.pagerefresh(this.currentTab)
+          // this.getHomeG(this.currentTab)
           break;
         case 2:
           this.currentTab='sell'
-          this.getHomeG(this.currentTab)
+          this.pagerefresh(this.currentTab)
           break;
         default:
           break;
       }
+      this.$refs.tabcontrol1.activeIndex=index
+      this.$refs.tabcontrol.activeIndex=index
     },
     backtop(){
       this.$refs.scroll.scrollTo(0,0,500)
@@ -129,12 +134,41 @@ export default {
     },
     contentscroll(position){
       this.isshow=position.y<=-700
-      let offsetTop = document.querySelector('#tabcontrol').offsetTop
+      let offsetTop = this.$refs.tabcontrol.$el.offsetTop
       this.isshow2=(-position.y)>offsetTop
     },
     loadmore(){
       // console.log("shangla");
       this.getHomeG(this.currentTab)
+    },
+    // 防抖
+    
+    debounce(func,delay){
+      return function(...args){
+        let timer=null
+        if(timer) clearTimeout(timer)
+        timer= setTimeout(()=>{
+          func.apply(this,args)
+        },delay)
+      }
+    },
+    pagerefresh(type){
+      if(type=='pop'){
+        if(this.goods[type].page<this.goods['news'].page||this.goods[type].page<this.goods['sell'].page){
+          this.getHomeG(type)
+        }
+      }
+      if(type=='news'){
+        if(this.goods[type].page<this.goods['pop'].page||this.goods[type].page<this.goods['sell'].page){
+          this.getHomeG(type)
+        }
+      }
+      if(type=='sell'){
+        if(this.goods[type].page<this.goods['pop'].page||this.goods[type].page<this.goods['news'].page){
+          this.getHomeG(type)
+        }
+      }
+      
     }
   }
 }
@@ -142,27 +176,27 @@ export default {
 </script>
 <style scoped>
   #home{
-    padding-top: 44px;
+    /* padding-top: 44px; */
     width: 100%;
   }
   .home-nav{
     background-color: var(--color-tint);
     color: #fff;
 
-    position: fixed;
-    z-index: 999;
+    /* position: fixed; */
+    /* z-index: 999;
     width: 375px;
     left: 0;
     top: 0;
-    right: 0;
+    right: 0; */
   }
   .home-nav img{
     width: 60px;
     height:60px;
   }
   .tabcontrol{
-    position: sticky;
-    top: 44px;
+    position: relative;
+    /* top: 44px; */
   }
   .content{
     /* height: 600px; */
