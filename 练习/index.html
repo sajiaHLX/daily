@@ -1,68 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        body{
-            margin: 0;
-            padding: 0;
-        }
-        header,footer{
-            height: 100px;
-            width: 100%;
-            background-color: aqua;
-        }
-        .container{
-            height: 300px;
-            padding-left: 200px;
-            padding-right: 300px;
-        }
-        .container div{
-            float: left;
-            position: relative;
-        }
-        .left{
-            width: 200px;
-            height: 300px;
-            background-color: aquamarine;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
 
-            margin-left: -100%;
-            left: -200px;
-        }
-        .middle{
-            width: 100%;
-            height: 300px;
-            background-color: blueviolet;
-        }
-        .right{
-            width: 300px;
-            height: 300px;
-            background-color:coral;
+    header,
+    footer {
+      height: 100px;
+      width: 100%;
+      background-color: aqua;
+    }
 
-            margin-left:-300px;
-            right: -300px;
-        }
-    </style>
+    .container {
+      height: 300px;
+      padding-left: 200px;
+      padding-right: 300px;
+    }
+
+    .container div {
+      float: left;
+      position: relative;
+    }
+
+    .left {
+      width: 200px;
+      height: 300px;
+      background-color: aquamarine;
+
+      margin-left: -100%;
+      left: -200px;
+    }
+
+    .middle {
+      width: 100%;
+      height: 300px;
+      background-color: blueviolet;
+    }
+
+    .right {
+      width: 300px;
+      height: 300px;
+      background-color: coral;
+
+      margin-left: -300px;
+      right: -300px;
+    }
+  </style>
 </head>
+
 <body>
-    <header>这是头部</header>
-    <div class="container">
-        <div class="middle">中间栏</div>
-        <div class="left">左栏</div>
-        <div class="right">右栏</div>
-    </div>
-    <footer>这是底部</footer>
-    <script>
-      let timer = setTimeout(()=>{
-        console.log("定时");
-      },0)
-      console.log(timer);
-      console.log(timer);
-      console.log(timer);
-      console.log(timer);
-    </script>
+  <header>这是头部</header>
+  <div class="container">
+    <div class="middle">中间栏</div>
+    <div class="left">左栏</div>
+    <div class="right">右栏</div>
+  </div>
+  <footer>这是底部</footer>
+  <script>
+    function myFun() {
+      console.log('throttleV1');
+    }
+
+    function debounce(method, delay) {
+      var timer = null;
+      return function () {
+        var context = this,
+          args = arguments;
+          console.log(context);
+          console.log(args);
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          method.apply(context, args);
+        }, delay);
+      }
+    }
+    window.onmousemove = debounce(myFun, 50);
+  </script>
 </body>
+
 </html>

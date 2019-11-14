@@ -141,8 +141,7 @@ export default {
       // console.log("shangla");
       this.getHomeG(this.currentTab)
     },
-    // 防抖
-    
+    // 防抖 
     debounce(func,delay){
       return function(...args){
         let timer=null
