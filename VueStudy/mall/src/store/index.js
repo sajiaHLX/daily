@@ -14,10 +14,21 @@ const store = new Vuex.Store({
       state.fa.push(payload)
     },
     rem(state,payload){
-      let index=state.fa.indexOf(payload)
-      state.fa.splice(index,1)
+      for (const item in state.fa) {
+        if (state.fa[item].id==payload.id) {
+          state.fa.splice(item,1)
+          break;
+        }
+      }
     }
-    
+  },
+  getters:{
+    getlength(state){
+      return state.fa.length
+    },
+    getfa(state){
+      return state.fa
+    }
   }
 }) 
 

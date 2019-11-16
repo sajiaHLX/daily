@@ -179,7 +179,7 @@ export default {
     width: 100%;
   }
   .home-nav{
-    background-color: var(--color-tint);
+    background-color: cadetblue;
     color: #fff;
 
     /* position: fixed; */

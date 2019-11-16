@@ -7,10 +7,14 @@
 </template>
 
 <script>
+import scroll from './betterscroll/Scroll'
 export default {
   data () {
     return {
     }
+  },
+  components: {
+    scroll,
   },
 }
 
