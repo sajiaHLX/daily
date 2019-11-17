@@ -38,6 +38,7 @@ export default {
 <style scoped>
   .title{
     display: flex;
+    color: #000;
   }
   .titleItem{
     flex: 1;
