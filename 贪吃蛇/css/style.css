@@ -1,0 +1,10 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+.container{
+  width: 800px;
+  height: 800px;
+  background:#ddd;
+  position: relative;
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #test{
+      height: 3000px;
+      margin: 1000px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <ul id="test" style="background-color: aqua;">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+  </ul>
+  <!-- <script>
+    // async function f() {
+    //   let promise = new Promise((resolve, reject) => {
+    //       setTimeout(() => resolve('done!'), 1000)
+    //   })
+    //   let result = await promise // 直到promise返回一个resolve值（*）
+    //   alert(result) // 'done!' 
+    // }
+    // f()
+    // console.log("start");
+    // for(var i = 0;i < 3; i++){
+    //   (function (i) {  
+    //     setTimeout(function () {  
+    //       console.log(i);
+    //     },0)
+    //   })(i);
+    // }
+    // console.log('end')
+    // var ul = document.getElementById('test');
+    // var list = ul.children;
+    // for (let index = 0; index < list.length; index++) {
+    //   const element = list[index];
+    //   (function (index) {  
+    //     element.onclick=function(){
+    //       console.log(index);
+    //     }
+    //   })(index);
+    // }
+    // function cheng(n){
+    //   if(n===1){
+    //     return 1;
+    //   }
+    //   return n * cheng(n-1); 
+    // }
+    // console.log(cheng(5));
+    var obj1 = {
+      name:'he',
+      age:18,
+      friend:[1,2,3,4],
+      dog:{
+        name:'niurou',
+        age:1
+      }
+    };
+    var obj2={};
+    function deepCopy(o1,o2){
+      for(var key in o1){
+        if(o1[key] instanceof Object){
+          o2[key]={};
+          deepCopy(o1[key],o2[key]);
+        }else if(o1[key] instanceof Array){
+          o2[key] = [];
+          deepCopy(o1[key],o2[key]);
+        }else{
+          o2[key] = o1[key]
+        }
+      }
+    }
+    deepCopy(obj1,obj2);
+    obj1.friend[0]='xxx';
+    obj1.dog.name='ni';
+    console.log(obj2);
+  </script> -->
+  <script>
+    var x = document.getElementById("test")
+    console.log(x.childNodes);
+    console.log(x.children);
+  </script>
+</body>
+
+</html>

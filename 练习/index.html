@@ -65,24 +65,54 @@
   </div>
   <footer>这是底部</footer>
   <script>
-    function myFun() {
-      console.log('throttleV1');
-    }
+    // function myFun() {
+    //   console.log('throttleV1');
+    // }
 
-    function debounce(method, delay) {
-      var timer = null;
-      return function () {
-        var context = this,
-          args = arguments;
-          console.log(context);
-          console.log(args);
-        clearTimeout(timer);
-        timer = setTimeout(function () {
-          method.apply(context, args);
-        }, delay);
+    // function debounce(method, delay) {
+    //   var timer = null;
+    //   return function () {
+    //     var context = this,
+    //       args = arguments;
+    //       console.log(context);
+    //       console.log(args);
+    //     clearTimeout(timer);
+    //     timer = setTimeout(function () {
+    //       method.apply(context, args);
+    //     }, delay);
+    //   }
+    // }
+    // window.onmousemove = debounce(myFun, 50);
+    // let str='1234500';
+    // let a=str.split('').map(function (item) {  
+    //   return item*1
+    // }).reduce(function(x,y){
+    //   return x*10+y;
+    // })
+    // console.log(a);
+    // let a=['adam', 'LISA', 'barT'];
+    // let b = a.map(function (item,index,array) {
+    //   console.log(index);
+    //   console.log(array);  
+    //  })
+    var book={
+      _year:2004,
+      edition:1
+    };
+    Object.defineProperty(book,"year",{
+      get:function(){
+        return this._year;
+      },
+      set:function(newvalue){
+        if(newvalue>2004){
+          this._year=newvalue;
+          this.edition+=newvalue-2004;
+        }
       }
-    }
-    window.onmousemove = debounce(myFun, 50);
+    });
+    // book.year;
+    alert(book.edition);
+    console.log(book.year=2015);
   </script>
 </body>
 
